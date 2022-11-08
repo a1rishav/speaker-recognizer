@@ -1,3 +1,9 @@
 librosa
 jupyter
 matplotlib
+Resemblyzer
+keras
+tensorflow
+tensorflow-gpu
+pandarallel
+speechbrain
