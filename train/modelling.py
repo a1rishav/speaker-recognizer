@@ -58,4 +58,4 @@ warnings.simplefilter('ignore')
 
 base_path = "/home/rishav/repo/ml/speaker-recognizer"
 model_path = os.path.join(base_path, "models")
-speaker_df = pd.read_pickle(os.path.join(base_path, "embeddings/embedding.pkl"))
+speaker_df = pd.read_pickle(os.path.join(base_path, "embeddings/embedding_resem_ecapa_mfcc.pkl"))

@@ -1,3 +1,4 @@
+import datetime
 import os
 
 import librosa
@@ -50,15 +51,18 @@ def extract_features(file_path):
 
     # Generate Mel-frequency cepstral coefficients (MFCCs) from a time series
     mfccs = np.mean(librosa.feature.mfcc(y=X, sr=sample_rate, n_mfcc=40).T, axis=0)
+    # len 40
 
     # resemblyzer embedding
     wav = preprocess_wav(file_path)
     resemblyzer_embedding = encoder.embed_utterance(wav)
+    # len 256
 
     # ecapa-tdnn embedding
-    signal, fs = torchaudio.load('debussy.wav')
+    signal, fs = torchaudio.load(file_path)
     ecapa_embeddings = classifier.encode_batch(signal)
     ecapa_embeddings_flatten = np.array(ecapa_embeddings)[0][0]
+    # len 192
 
     return np.concatenate((resemblyzer_embedding, ecapa_embeddings_flatten, mfccs))
 
@@ -66,4 +70,7 @@ def extract_features(file_path):
 sample_file = os.path.join(base_path, "data/shivam_shukla/TrainingAudio/Aadiksha-007/Aadiksha_1.wav")
 sample_feature = extract_features(sample_file)
 speaker_df['features'] = speaker_df['file_path'].apply(lambda file_path : extract_features(file_path))
+pickle_path = os.path.join(base_path, 'embeddings', f'embedding_resem_ecapa_mfcc_{str(datetime.datetime.today()).split(" ")[0]}.pkl')
+speaker_df.to_pickle(pickle_path)
+
 print()
