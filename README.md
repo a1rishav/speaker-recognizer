@@ -1,1 +1,1 @@
-# Text Independent Speaker Recognition on Hindi Voice Samples
+# Text Independent Speaker Recognition on Short Hindi Voice Samples
